@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+input {
+  font-size: larger;
+  border: solid 1px #282c34;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+button {
+  background-color: #E25E3E;
+  font-size: medium;
+  color: white;
+  font-weight: 600;
+  padding: 10px 15px;
+  border: none;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #C63D2F;
+}
+
+label {
+  font-size: larger;
+}
+
+.check {
+  margin-right: 15px;
+  width: 17px;
+  height: 17px;
+}
