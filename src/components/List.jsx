@@ -4,13 +4,11 @@ const List = (props) => {
     const sortedArr = props.myArr;
     const sortedArrNum = props.arrNumber;
 
-    const compare = (a, b) => (a < b ? -1 : 1);
+    // const compare = (a, b) => (a < b ? -1 : 1);
     const compareNumbers = (a, b) => (a - b);
 
-    sortedArr.sort(compare);
-    console.log("ALL", sortedArr)
+    sortedArr.sort();
     sortedArrNum.sort(compareNumbers)
-    console.log("NUM", sortedArrNum)
 
     return (
         <div className="space-beet">
