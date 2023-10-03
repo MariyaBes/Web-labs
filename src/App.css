@@ -108,3 +108,12 @@ span {
   cursor: pointer;
   margin-left: 30px;
 }
+
+.inpText {
+  padding: 12px 10px;
+  width: 200px;
+  font-size: medium;
+  border: 1px solid gray;
+  border-radius: 12px;
+  text-decoration: none;
+}
