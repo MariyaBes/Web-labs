@@ -5,6 +5,8 @@ import UserGreeting from './components/UserGreeting';
 import GuestGreeting from './components/GuestGreeting';
 import AddShapeForm from "./components/AddShapeForm";
 import ShapeList from "./components/ShapeList";
+import ControlledTextarea from "./components/ControlledTextarea";
+import UncontrolledTextarea from "./components/UncontrolledTextarea";
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
       <ImageContainer />
 
       <h1>Задание 2</h1>
+        <ControlledTextarea />
+        <UncontrolledTextarea />
 
       <h1>Задание 3: Greeting</h1>
       <input placeholder='Введите свое имя' 

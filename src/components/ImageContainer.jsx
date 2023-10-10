@@ -1,7 +1,7 @@
 import React from "react";
 import CustomizableImage from "./CustomizableImage";
 
-const ImageContainer = ({ children }) => {
+const ImageContainer = () => {
 
     const imageStyle = {
         border: "1px solid black",
