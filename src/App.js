@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import ImageContainer from './components/ImageContainer';
 import UserGreeting from './components/UserGreeting';
 import GuestGreeting from './components/GuestGreeting';
+import AddShapeForm from "./components/AddShapeForm";
+import ShapeList from "./components/ShapeList";
 
 function App() {
 
   const [user, setUser] = useState('');
   const [logged, setLogged] = useState(false);
+  const [shapes, setShapes] = useState([]);
 
   function inLogin () {
     if(user !== ''){
@@ -19,6 +22,11 @@ function App() {
     setLogged(false);
     return setUser('')
   }
+
+    const typeShape = (newShape) => {
+        setShapes([...shapes, newShape]);
+    };
+
 
   return (
     <div className="App">
@@ -32,13 +40,16 @@ function App() {
       className='inpText' 
       type={'text'} 
       value={user} 
-      onChange={(e) => setUser(e.target.value)}></input>
+      onChange={(e) => setUser(e.target.value)}>
+      </input>
+
       <button className='btnClick' onClick={inLogin}>Войти</button>
 
       {logged ? (<UserGreeting user={user} isLogout={isLogout}/>) : (<GuestGreeting/>)}
 
       <h1>Задание 4</h1>
-
+        <AddShapeForm addShape={typeShape}/>
+        <ShapeList shape={shapes}/>
     </div>
   );
 }
