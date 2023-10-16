@@ -29,6 +29,10 @@ function App() {
         setShapes([...shapes, newShape]);
     };
 
+    const deleteShape = (index) => {
+        setShapes(prevShapes => prevShapes.filter((_, i) => i !== index));
+    };
+
 
   return (
     <div className="App">
@@ -52,8 +56,8 @@ function App() {
       {logged ? (<UserGreeting user={user} isLogout={isLogout}/>) : (<GuestGreeting/>)}
 
       <h1>Задание 4</h1>
-        <AddShapeForm addShape={typeShape}/>
-        <ShapeList shape={shapes}/>
+        <AddShapeForm addShape={typeShape} />
+        <ShapeList shape={shapes} delShapes={deleteShape}/>
     </div>
   );
 }

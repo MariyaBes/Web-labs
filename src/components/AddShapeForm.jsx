@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import ShapeList from "./ShapeList";
 
 const AddShapeForm = ({ addShape }) => {
     const [shape, setShape] = useState('');
