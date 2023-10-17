@@ -1,29 +1,17 @@
 import './App.css';
 import React, { useState } from 'react';
-import ImageContainer from './components/ImageContainer';
-import UserGreeting from './components/UserGreeting';
-import GuestGreeting from './components/GuestGreeting';
 import AddShapeForm from "./components/AddShapeForm";
 import ShapeList from "./components/ShapeList";
-import ControlledTextarea from "./components/ControlledTextarea";
-import UncontrolledTextarea from "./components/UncontrolledTextarea";
+import useInput from "./components/useInput";
+import ModalAnimation from "./components/ModalAnimation";
+
 
 function App() {
-
-  const [user, setUser] = useState('');
-  const [logged, setLogged] = useState(false);
   const [shapes, setShapes] = useState([]);
+  const [modalActive, setModalActive] = useState(false);
+  const [showTrigger, setShowTrigger] = useState(true);
 
-  function inLogin () {
-    if(user !== ''){
-      return setLogged(true);
-    }
-  }
-
-  function isLogout(){
-    setLogged(false);
-    return setUser('')
-  }
+  const input = useInput('', true);
 
     const typeShape = (newShape) => {
         setShapes([...shapes, newShape]);
@@ -36,28 +24,29 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Задание 1: ImageContainer и CustomizableImage</h1>
-      <ImageContainer />
 
-      <h1>Задание 2</h1>
-        <ControlledTextarea />
-        <UncontrolledTextarea />
-
-      <h1>Задание 3: Greeting</h1>
-      <input placeholder='Введите свое имя' 
-      className='inpText' 
-      type={'text'} 
-      value={user} 
-      onChange={(e) => setUser(e.target.value)}>
-      </input>
-
-      <button className='btnClick' onClick={inLogin}>Войти</button>
-
-      {logged ? (<UserGreeting user={user} isLogout={isLogout}/>) : (<GuestGreeting/>)}
-
-      <h1>Задание 4</h1>
+      <h1>Задание 1</h1>
         <AddShapeForm addShape={typeShape} />
         <ShapeList shape={shapes} delShapes={deleteShape}/>
+
+      <h1>Задание 2</h1>
+        <div className={'inputUse'}>
+            <label>Текст: {input.value}</label>
+            <input
+                type='text'
+                value={input.value}
+                onChange={input.onChange}
+                onBlur={input.onBlur}
+            />
+            {input.error && <span>{input.error}</span>}
+        </div>
+
+        <h1>Задание 3</h1>
+        {showTrigger ? <button
+            onClick={() => setModalActive(true)}
+            className={'btnClick'}>Открыть модальное окно</button> : null}
+
+        <ModalAnimation modal={modalActive} setActive={setModalActive} setShowTrigger={setShowTrigger}/>
     </div>
   );
 }
