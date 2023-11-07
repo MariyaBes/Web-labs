@@ -5,6 +5,7 @@ import {books} from "./data";
 import {Books} from "./components/Books";
 import Timer from "./components/Timer";
 import Albums from "./components/Albums";
+import Posts from "./components/Posts";
 
 function App() {
   const [order, setOrder] = useLocalStorage([], 'order');
@@ -23,7 +24,10 @@ function App() {
       </div>
       <Books items={books} addToOrder={addToOrder}/>
         <Timer />
+
         <Albums />
+
+        <Posts />
     </div>
   );
 }
