@@ -43,86 +43,23 @@ span {
   font-weight: 500;
 }
 
-.books {
-  border: 2px solid #a7f3d0;
-  border-radius: 30px;
-  margin-bottom: 50px;
+.list-countries {
+  display: block;
+  list-style: none;
 }
 
-.book {
-  margin-bottom: 15px;
-}
-
-.book-title {
-  color: #333;
-  letter-spacing: 1.5px;
-  font-weight: bold;
-}
-
-.book-buttom {
-  background: linear-gradient(90deg, #99f6e4 0%, #a7f3d0 100%);
-  padding: 10px;
-  border: none;
-  border-radius: 30px;
-  color: #333333;
-  letter-spacing: 1.1px;
-  font-weight: 600;
-  width: 150px;
-  margin-left: 20px;
-  cursor: pointer;
-}
-
-.book-buttom:hover {
-  transition: all ease-in-out 0.3s;
-  background: linear-gradient(90deg, #5eead4 0%, #6ee7b7 100%);
-}
-
-p {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.mb-container {
-  margin-bottom: 50px;
-
-}
-
-.gap-posts {
-  width: 800px;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 25px;
-  margin-top: 25px;
-}
-
-.inputs {
+.list-countries__item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  color: #333333;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  margin: 25px;
+  border-bottom: 1px solid #333333;
+  border-top: 1px solid #333333;
+  gap: 50px;
+  padding: 15px;
 }
 
-.input-name {
-  display: flex;
-  height: 24px;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-  border: 1px solid #DFDFDF;
-  border-radius: 35px;
-  font-size: 16px;
-  padding: 15px 20px;
-}
-
-.input-comment {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-  border: 1px solid #DFDFDF;
-  border-radius: 35px;
-  font-size: 16px;
-  padding: 15px 20px;
-}
