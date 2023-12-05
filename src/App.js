@@ -1,82 +1,82 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import Countries from "./components/Countries";
-import CustomPagination from "./components/Pagination";
-import {Container, Button } from "@mui/material";
-
-
+import PostService from "./API/PostService";
+import {useFetching} from "./hooks/useFetching";
+import {usePosts} from "./hooks/usePosts";
+import MyButton from "./components/UI/button/MyButton";
+import MyModal from "./components/UI/MyModal/MyModal";
+import PostForm from "./components/PostForm";
+import PostFilter from "./components/PostFilter";
+import Loader from "./components/UI/Loader/Loader";
+import PostList from "./components/PostList";
+import Pagination from "./components/UI/pagination/Pagination";
+import { getPageCount } from "./utils/page";
+import {usePagination} from "./hooks/usePagination";
 
 function App() {
+    const [filter, setFilter] = useState({sort:'', query:''});
+    const [modal, setModal] = useState(false);
+    const [posts, setPosts] = useState([]);
+    const [totalPages, setTotalPages] = useState(0);
+    const [limit] = useState(10);
+    const [page, setPage] = useState(1);
 
-    const [countries, setCountries] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [pageCurr, setPageCurr] = useState(1)
-    const [countPage] = useState(10)
+    const pagesArray = usePagination(totalPages);
 
-    useEffect(() => {
-        const getCountries = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get('https://restcountries.com/v3.1/all');
-                setCountries(response.data);
-            } catch (error) {
-                console.error('Error: ', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
-        getCountries();
-    }, []);
-
-    const lastCountryI = pageCurr * countPage
-    const firstCountryI = lastCountryI - countPage
-    const countCountry = countries.slice(firstCountryI, lastCountryI)
-
-    const onPageChange = (value) => {
-        setPageCurr(value);
+    const createPost = (newPost) => {
+        setPosts([...posts, newPost]);
+        setModal(false);
     };
 
-    const nextPage = () => {
-        setPageCurr(prev => prev + 1)
-    }
-    const prevPage = () => {
-        setPageCurr((prev) => (prev > 1 ? prev - 1 : 1))
-    }
+    const deletePost = (post) => {
+        setPosts(posts.filter(p => p.id !== post.id));
+    };
 
-    const firstPage = () => {
-        setPageCurr(prev => 1)
-    }
-    const lastPage = () => {
-        const lastPageNumber = Math.ceil(countries.length / countPage);
-        setPageCurr(lastPageNumber)
-    }
+    const [fetching, isLoading, postError] = useFetching(async () => {
+        const response = await PostService.getAll(limit, page);
+        setPosts(response.data);
+        const totalCount = response.headers['x-total-count'];
+        setTotalPages(getPageCount(totalCount, limit));
+    });
+
+    useEffect(() => {
+        fetching();
+    }, [page]);
+
+    const changePage = (p) => {
+        setPage(p);
+    };
 
     return (
         <div className="App">
-          <div className='app-header-title'>
-            <h1 className="app-header-title__head">Программирование и поддержка веб-приложений</h1>
-            <h2 className="app-header-title__desc"><strong>Пагинация.</strong></h2>
-          </div>
-            <Container>
-                <Countries countries={countCountry} loading={loading}/>
-                <CustomPagination page={countPage} totalCountries={countries.length} onPageChange={onPageChange} />
+            <div className='app-header-title'>
+                <h1 className="app-header-title__head">Программирование и поддержка веб-приложений</h1>
+                <h2 className="app-header-title__desc"><strong>Пагинация.</strong></h2>
+            </div>
 
-                <Button className={'btn-prev-page'} onClick={prevPage}>
-                    Назад
-                </Button>
-                <Button className={'btn-next-page'} onClick={nextPage}>
-                    Вперед
-                </Button>
-                <Button className={'btn-prev-page'} onClick={firstPage}>
-                    В начало
-                </Button>
-                <Button className={'btn-next-page'} onClick={lastPage}>
-                    В конец
-                </Button>
-            </Container>
+            <hr style={{margin:"15px 0"}}/>
+            <MyButton onClick={() => setModal(true)}>Создать пост </MyButton>
 
+            <MyModal visible={modal} setVisible={setModal}>
+                <PostForm createPost={createPost}/>
+            </MyModal>
+            <PostFilter filter={filter} setFilter={setFilter}/>
+            {
+                postError && <h1>Error ${postError}</h1>
+            }
+            {
+                isLoading
+                    ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
+                    : <PostList deletePost={deletePost} posts={sortedAndSearchedPosts} title="Посты про JS" />
+            }
+            <Pagination
+                totalPages={totalPages}
+                changePage={changePage}
+                page={page}
+                pagesArray={pagesArray}
+            />
         </div>
     );
 }
