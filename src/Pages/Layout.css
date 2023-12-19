@@ -1,0 +1,42 @@
+#root {
+    --color-active: green;
+}
+
+nav {
+    display: flex;
+    background: linear-gradient(90deg, #99f6e4 0%, #a7f3d0 100%);
+    padding: 10px;
+    justify-content: center;
+}
+
+nav a {
+    color: #333333;
+    text-decoration: none;
+    padding: 8px;
+    margin: 0 5px;
+}
+
+/* СПОСОБ 0 */
+nav a.active {
+    display: flex;
+    background-color: #ffffff;
+    cursor: default;
+    color: #333333;
+    border-radius: 20px;
+    padding: 5px 20px;
+    align-items: center;
+}
+
+/* ////////////////////////////////////////// */
+/* СПОСОБ 1 */
+/* .active {
+    color: var(--color-active);
+    cursor: default;
+} */
+
+/* ////////////////////////////////////////// */
+/* СПОСОБ 2 */
+/* .active-link {
+    color: var(--color-active);
+    cursor: default;
+} */
