@@ -79,3 +79,8 @@ span {
   border: 2px solid orange;
   font-weight: bold;
 }
+
+.margin {
+  margin: 100px;
+
+}
