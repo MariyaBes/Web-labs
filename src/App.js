@@ -7,7 +7,10 @@ import Blogs from "./Pages/Blogs";
 import Contact from "./Pages/Contact";
 import ErrorPage from "./Pages/ErrorPage";
 import NoPage from "./Pages/NoPage";
+import Products from "./Pages/Products";
 
+function Phone() { return <h3>Смартфоны</h3>; }
+function Tablet() { return <h3>Планшеты</h3>; }
 
 function App() {
    
@@ -21,6 +24,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
+                        <Route path="/products/*" element={<Products />}>
+                            <Route path="phones" element={<Phone />} />
+                            <Route path="tablets" element={<Tablet />} />
+                        </Route>
                         <Route path="blogs" element={<Blogs />} />
                         <Route path="contact" element={<Contact />} />
                         <Route path="error" element={<ErrorPage />} />
